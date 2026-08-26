@@ -1,0 +1,192 @@
+/* Reset Asas & Font */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f4f7f6;
+    color: #333;
+}
+
+/* --- SIDEBAR --- */
+#sidebar {
+    width: 260px;
+    background-color: #1e3a8a; /* Biru korporat */
+    color: white;
+    padding-top: 20px;
+    transition: all 0.4s ease;
+}
+
+/* Kelas untuk memblurkan sidebar */
+.blurred {
+    filter: blur(6px);
+    pointer-events: none; /* Halang dari di-klik */
+    opacity: 0.7;
+}
+
+.sidebar-header {
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
+}
+
+.nav-links {
+    list-style: none;
+}
+
+.nav-links li a {
+    display: block;
+    padding: 15px 25px;
+    color: #cbd5e1;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.nav-links li a:hover, .nav-links li a.active {
+    background-color: #1e40af;
+    color: white;
+    border-left: 4px solid #facc15; /* Aksen kuning */
+}
+
+/* --- KANDUNGAN UTAMA --- */
+#main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Header Kanan Atas */
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 40px;
+    background: transparent;
+}
+
+.spacer { flex: 1; }
+
+.btn-login {
+    padding: 10px 20px;
+    background-color: #ef4444; /* Merah untuk butang Google/DELIMa */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn-login:hover { background-color: #dc2626; }
+
+/* Dashboard & Pilihan */
+.dashboard-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.hero-section h1 { font-size: 2.2rem; color: #1e3a8a; margin-bottom: 10px; }
+.hero-section h2 { font-size: 1.8rem; color: #475569; margin-bottom: 10px; }
+.hero-section p { color: #64748b; margin-bottom: 40px; }
+
+.card-container {
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.access-card {
+    background: white;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 30px 20px;
+    width: 260px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+}
+
+.access-card:hover { transform: translateY(-5px); }
+.guru-card:hover { border-color: #3b82f6; }
+.pelawat-card:hover { border-color: #10b981; }
+
+.card-icon { font-size: 3rem; margin-bottom: 15px; }
+.access-card h4 { font-size: 1.2rem; margin-bottom: 10px; color: #1e293b; }
+.access-card p { font-size: 0.9rem; color: #64748b; }
+
+/* --- INFINITE SCROLL GAMBAR --- */
+.slider-section {
+    padding: 20px 0 40px;
+    text-align: center;
+    background: white;
+    border-top: 1px solid #e2e8f0;
+}
+
+.slider-section h4 {
+    color: #475569;
+    margin-bottom: 20px;
+    font-weight: 400;
+}
+
+.slider {
+    height: 100px;
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.slider::before, .slider::after {
+    background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+    content: "";
+    height: 100px;
+    position: absolute;
+    width: 100px;
+    z-index: 2;
+}
+
+.slider::before { left: 0; top: 0; }
+.slider::after { right: 0; top: 0; transform: rotateZ(180deg); }
+
+.slide-track {
+    animation: scroll 20s linear infinite;
+    display: flex;
+    width: calc(150px * 12); /* Lebar imej * jumlah imej (termasuk pendua) */
+}
+
+.slide {
+    height: 100px;
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+}
+
+.slide img {
+    border-radius: 50%; /* Jadikan gambar bulat */
+    border: 3px solid #1e3a8a;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+/* Animasi Pergerakan */
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-150px * 6)); } /* Bergerak separuh track, sebelum reset */
+}
