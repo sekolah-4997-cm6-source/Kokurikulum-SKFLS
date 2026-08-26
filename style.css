@@ -111,6 +111,7 @@ header {
     margin-top: 20px;
     justify-content: center;
     flex-wrap: wrap;
+    margin-bottom: 80px;
 }
 
 .access-card {
