@@ -132,6 +132,26 @@ body {
     letter-spacing: 0.5px;
 }
 
+/* --- BUTANG ADMIN --- */
+.btn-admin {
+    padding: 10px 20px;
+    background-color: #dc2626; /* Warna merah untuk bezakan dengan butang biasa */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn-admin:hover {
+    background-color: #b91c1c;
+}
+
 /* --- KANDUNGAN UTAMA --- */
 #main-content {
     flex: 1;
