@@ -100,7 +100,29 @@
         <!-- Tab 3: Slider -->
         <div id="tab-slider" class="admin-card" style="display: none;">
             <h3>🖼️ Pengurusan Slider Muka Depan</h3>
-            <p>Borang untuk menambah gambar, nama, dan jawatan guru akan diletakkan di sini.</p>
+            <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 20px;">Tambah, buang, atau ubah gambar guru yang terpapar di halaman utama.</p>
+            
+            <!-- Borang Tambah Slider Baru -->
+            <div style="background: #f8fafc; padding: 20px; border-radius: 6px; margin-bottom: 20px; border: 1px solid #e2e8f0; display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+                <input type="text" id="newSliderName" placeholder="Nama Guru (Cth: Cikgu Ali)" style="padding: 10px; flex: 1; min-width: 200px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                <input type="text" id="newSliderRole" placeholder="Jawatan (Cth: Penyelaras Sukan)" style="padding: 10px; flex: 1; min-width: 200px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                <input type="text" id="newSliderImage" placeholder="URL Gambar / Link Imej" style="padding: 10px; flex: 2; min-width: 250px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                <button onclick="addSlider()" style="background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: bold;">➕ Tambah Guru</button>
+            </div>
+
+            <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 6px; overflow: hidden;">
+                <thead>
+                    <tr style="background-color: #1e293b; color: white; text-align: left;">
+                        <th style="padding: 12px; width: 80px;">Gambar</th>
+                        <th style="padding: 12px;">Nama Guru</th>
+                        <th style="padding: 12px;">Jawatan</th>
+                        <th style="padding: 12px; text-align: center;">Tindakan</th>
+                    </tr>
+                </thead>
+                <tbody id="sliderTableBody">
+                    <tr><td colspan="4" style="text-align: center; padding: 15px;">⏳ Memuat turun senarai slider...</td></tr>
+                </tbody>
+            </table>
         </div>
 
         <!-- Tab 4: Tong Sampah -->
