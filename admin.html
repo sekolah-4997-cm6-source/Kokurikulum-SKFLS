@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Console - OSC Koku</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* CSS Tambahan Khas untuk Admin Sahaja */
+        body { margin: 0; display: flex; background-color: #f1f5f9; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .admin-sidebar { width: 250px; background-color: #0f172a; color: white; height: 100vh; padding-top: 20px; }
+        .admin-sidebar h2 { text-align: center; color: #38bdf8; margin-bottom: 30px; border-bottom: 1px solid #334155; padding-bottom: 15px; }
+        .admin-menu { list-style: none; padding: 0; margin: 0; }
+        .admin-menu li { padding: 15px 20px; cursor: pointer; border-bottom: 1px solid #1e293b; transition: 0.2s; }
+        .admin-menu li:hover, .admin-menu li.active { background-color: #1e293b; border-left: 4px solid #38bdf8; }
+        .admin-content { flex: 1; padding: 30px; overflow-y: auto; height: 100vh; box-sizing: border-box; }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .admin-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Admin -->
+    <div class="admin-sidebar">
+        <h2>⚙️ ADMIN CONSOLE</h2>
+        <ul class="admin-menu">
+            <li class="active" onclick="showTab('tab-users')">👥 Pengurusan Guru</li>
+            <li onclick="showTab('tab-navbar')">📑 Pengurusan Navbar</li>
+            <li onclick="showTab('tab-slider')">🖼️ Pengurusan Slider</li>
+            <li onclick="showTab('tab-trash')">🗑️ Tong Sampah Dokumen</li>
+            <li style="margin-top: 50px; color: #f87171;" onclick="window.location.href='index.html'">⬅ Kembali ke Sistem</li>
+        </ul>
+    </div>
+
+    <!-- Ruang Kerja Utama -->
+    <div class="admin-content">
+        
+        <!-- Tab 1: Pengguna -->
+        <div id="tab-users" class="admin-card">
+            <h3>👥 Pengurusan Peranan Guru</h3>
+            <p>Paparan untuk mengubah peranan dan akses guru akan diletakkan di sini.</p>
+        </div>
+
+        <!-- Tab 2: Navbar -->
+        <div id="tab-navbar" class="admin-card" style="display: none;">
+            <h3>📑 Pengurusan Menu Navbar</h3>
+            <p>Paparan untuk menambah/membuang kategori fail akan diletakkan di sini.</p>
+        </div>
+
+        <!-- Tab 3: Slider -->
+        <div id="tab-slider" class="admin-card" style="display: none;">
+            <h3>🖼️ Pengurusan Slider Muka Depan</h3>
+            <p>Borang untuk menambah gambar, nama, dan jawatan guru akan diletakkan di sini.</p>
+        </div>
+
+        <!-- Tab 4: Tong Sampah -->
+        <div id="tab-trash" class="admin-card" style="display: none;">
+            <h3>🗑️ Tong Sampah Dokumen (Soft Delete)</h3>
+            <p>Senarai dokumen yang dipadam dan boleh dipulihkan akan diletakkan di sini.</p>
+        </div>
+
+    </div>
+
+    <script>
+        // Fungsi ringkas untuk menukar tab di Admin Console
+        function showTab(tabId) {
+            // Sembunyikan semua tab
+            document.querySelectorAll('.admin-card').forEach(tab => {
+                tab.style.display = 'none';
+            });
+            // Buang class 'active' dari semua menu
+            document.querySelectorAll('.admin-menu li').forEach(menu => {
+                menu.classList.remove('active');
+            });
+            
+            // Tunjuk tab yang dipilih
+            document.getElementById(tabId).style.display = 'block';
+            // Aktifkan menu yang ditekan
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
