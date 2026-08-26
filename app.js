@@ -3,44 +3,28 @@
 // ==========================================
 async function paparSliderGuru() {
     const sliderTrack = document.querySelector('.slide-track');
-    if (!sliderTrack) return; // Jika bukan di index.html, abaikan
+    if (!sliderTrack) return;
 
     try {
-        // Ambil data dari koleksi "sliders" dalam Firebase
         const snapshot = await db.collection("sliders").orderBy("createdAt", "desc").get();
         
         if (snapshot.empty) {
-            console.log("Tiada data guru dalam database untuk slider.");
             sliderTrack.innerHTML = "<div>Tiada rekod guru</div>";
             return;
         }
 
         let htmlGambar = "";
 
-        // Pusing (loop) setiap data guru
         snapshot.forEach(doc => {
             const data = doc.data();
-            
-            let originalUrl = data.imageUrl; 
-            let directImageUrl = originalUrl; 
+            let directImageUrl = "https://via.placeholder.com/150?text=Tiada+Gambar";
 
-            // Jika pautan datang dari Google Drive, kita tukar formatnya
-            if (originalUrl && originalUrl.includes("drive.google.com")) {
-                const driveIdMatch = originalUrl.match(/\/d\/(.+?)\/(view|edit)/);
-                if (driveIdMatch && driveIdMatch[1]) {
-                    const fileId = driveIdMatch[1];
-                    directImageUrl = `https://drive.google.com/uc?export=view&id=${fileId}`;
-                } else {
-                    const driveIdMatchSimple = originalUrl.match(/id=(.+?)(&|$)/);
-                    if(driveIdMatchSimple && driveIdMatchSimple[1]) {
-                        const fileId = driveIdMatchSimple[1];
-                        directImageUrl = `https://drive.google.com/uc?export=view&id=${fileId}`;
-                    }
+            // Tukar URL Drive ke format CDN Google
+            if (data.imageUrl) {
+                const match = data.imageUrl.match(/[-\w]{25,}/);
+                if (match) {
+                    directImageUrl = `https://lh3.googleusercontent.com/d/${match[0]}`;
                 }
-            }
-            
-            if (!directImageUrl || directImageUrl === "") {
-                directImageUrl = "https://via.placeholder.com/150?text=Tiada+Gambar";
             }
 
             htmlGambar += `
