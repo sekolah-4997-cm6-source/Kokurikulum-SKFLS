@@ -1,6 +1,3 @@
-// --- HUBUNGAN KE FIREBASE ---
-const db = firebase.firestore();
-
 // ==========================================
 // MODUL 1: PENGURUSAN PERANAN GURU (TAB 1)
 // ==========================================
