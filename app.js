@@ -6,7 +6,7 @@ async function paparSliderGuru() {
     if (!sliderTrack) return; // Jika bukan di index.html, abaikan
 
     try {
-        // 1. Ambil data dari koleksi "sliders" dalam Firebase
+        // Ambil data dari koleksi "sliders" dalam Firebase
         const snapshot = await db.collection("sliders").orderBy("createdAt", "desc").get();
         
         if (snapshot.empty) {
@@ -17,42 +17,32 @@ async function paparSliderGuru() {
 
         let htmlGambar = "";
 
-        // 2. Pusing (loop) setiap data guru
+        // Pusing (loop) setiap data guru
         snapshot.forEach(doc => {
             const data = doc.data();
             
-            // --- BAHAGIAN PEMBAIKAN GAMBAR (Mula) ---
-            let originalUrl = data.imageUrl; // Pautan asal yang disimpan
-            let directImageUrl = originalUrl; // Pautan yang akan kita guna
+            let originalUrl = data.imageUrl; 
+            let directImageUrl = originalUrl; 
 
             // Jika pautan datang dari Google Drive, kita tukar formatnya
             if (originalUrl && originalUrl.includes("drive.google.com")) {
-                // Kita guna trik menukar URL Drive kepada URL direct download uc?id=
-                // Contoh asal: drive.google.com/file/d/ID_GAMBAR/view?usp=sharing
-                // Tukar ke: drive.google.com/uc?export=view&id=ID_GAMBAR
-                
-                // Cari ID Gambar menggunakan Regex (Regular Expression)
                 const driveIdMatch = originalUrl.match(/\/d\/(.+?)\/(view|edit)/);
-                if (driveIdMatch && driveIdMatch[cite: 1]) {
-                    const fileId = driveIdMatch[cite: 1];
+                if (driveIdMatch && driveIdMatch[1]) {
+                    const fileId = driveIdMatch[1];
                     directImageUrl = `https://drive.google.com/uc?export=view&id=${fileId}`;
                 } else {
-                    // Cuba format ringkas drive.google.com/open?id=ID
                     const driveIdMatchSimple = originalUrl.match(/id=(.+?)(&|$)/);
-                    if(driveIdMatchSimple && driveIdMatchSimple[cite: 1]) {
-                        const fileId = driveIdMatchSimple[cite: 1];
+                    if(driveIdMatchSimple && driveIdMatchSimple[1]) {
+                        const fileId = driveIdMatchSimple[1];
                         directImageUrl = `https://drive.google.com/uc?export=view&id=${fileId}`;
                     }
                 }
             }
             
-            // Jika tiada URL gambar, kita guna gambar placeholder kosong
             if (!directImageUrl || directImageUrl === "") {
                 directImageUrl = "https://via.placeholder.com/150?text=Tiada+Gambar";
             }
-            // --- BAHAGIAN PEMBAIKAN GAMBAR (Tamat) ---
 
-            // 3. Bina HTML dengan directImageUrl yang dibaiki
             htmlGambar += `
                 <div class="slide">
                     <img src="${directImageUrl}" alt="Gambar ${data.name}" title="${data.name} - ${data.role}" 
@@ -61,7 +51,6 @@ async function paparSliderGuru() {
             `;
         });
 
-        // Trik Infinite Scroll: Ganda dua kod HTML supaya bersambung
         sliderTrack.innerHTML = htmlGambar + htmlGambar;
 
     } catch (error) {
@@ -71,7 +60,7 @@ async function paparSliderGuru() {
 }
 
 // ==========================================
-// KOD ASAL ANDA (Telah digabungkan)
+// FUNGSI UTAMA (DIMUATKAN APABILA HALAMAN DIBUKA)
 // ==========================================
 document.addEventListener("DOMContentLoaded", () => {
     
@@ -101,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // --- Fungsi Halaman Utama (index.html) ---
         if (btnPelawat) {
             btnPelawat.addEventListener("click", () => {
-                if(sidebar) sidebar.classList.remove("blurred"); // letak if(sidebar) sebagai langkah berjaga-jaga
+                if(sidebar) sidebar.classList.remove("blurred");
                 alert("Mod Pelawat Diaktifkan. Akses rujukan sahaja diberikan.");
             });
         }
@@ -113,7 +102,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // --- Hentikan animasi slider apabila dihalakan (Hover) ---
-        // Fungsi ini dikekalkan kerana ia sangat baik untuk UX pengguna
         const slideTrack = document.querySelector(".slide-track");
         if (slideTrack) {
             slideTrack.addEventListener("mouseover", () => {
@@ -125,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // 3. JALANKAN SEMUA FUNGSI APABILA HALAMAN DIBUKA
-    loadNavbar();          // Muatkan navbar[cite: 5]
-    paparSliderGuru();     // Tarik dan papar gambar dari Firebase
+    // 3. JALANKAN SEMUA FUNGSI
+    loadNavbar();          // Panggil Navbar
+    paparSliderGuru();     // Panggil Slider Gambar
 });
