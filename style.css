@@ -290,6 +290,69 @@ header {
     100% { transform: translateX(calc(-150px * 6)); } /* Bergerak separuh track, sebelum reset */
 }
 
+/* ==========================================
+   REKA BENTUK SLIDER GURU (DIKEMASKINI)
+   ========================================== */
+.slider {
+    width: 100%;
+    overflow-x: auto; /* Membenarkan pengguna scroll manual (kiri/kanan) */
+    overflow-y: hidden;
+    white-space: nowrap;
+    -ms-overflow-style: none;  /* Sembunyikan scrollbar di IE/Edge */
+    scrollbar-width: none;  /* Sembunyikan scrollbar di Firefox */
+}
+
+/* Sembunyikan scrollbar untuk Chrome, Safari dan Opera supaya nampak kemas */
+.slider::-webkit-scrollbar {
+    display: none;
+}
+
+.slide-track {
+    display: flex;
+    gap: 25px; /* Jarak antara kad guru */
+    padding: 15px 0;
+    /* Kita buang 'animation: scroll' kerana kita akan guna JavaScript */
+}
+
+.slide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 180px; /* Lebar tetap untuk satu kad guru */
+    flex-shrink: 0; /* Pastikan saiz tidak kemek */
+}
+
+.slide img {
+    width: 160px;
+    height: 160px; /* Width dan height sama = Segi empat sama */
+    object-fit: cover; /* Potong gambar secara profesional (tidak kemek) */
+    border-radius: 12px; /* Bucu petak sedikit bulat (rounded corners) */
+    border: 2px solid #e2e8f0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+/* Bahagian teks nama dan jawatan */
+.slide-info {
+    text-align: center;
+    margin-top: 12px;
+    white-space: normal; /* Benarkan teks panjang turun ke baris bawah */
+    width: 100%;
+}
+
+.slide-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.slide-role {
+    font-size: 13px;
+    color: #64748b;
+    margin: 4px 0 0 0;
+    font-weight: 500;
+}
 
 //----------------------------------//
 //BAHAGIAN 2 PAPARAN GURU.HTML//
