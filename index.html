@@ -54,25 +54,22 @@
             <h4>Barisan Guru Pemandu Kecemerlangan Kokurikulum</h4>
             <div class="slider">
                 <div class="slide-track">
-                    <!-- Set Gambar 1 (Gantikan src dengan gambar sebenar nanti) -->
-                    <div class="slide"><img src="https://via.placeholder.com/150/1e3a8a/ffffff?text=Cikgu+A" alt="Guru"></div>
-                    <div class="slide"><img src="https://via.placeholder.com/150/1e3a8a/ffffff?text=Cikgu+B" alt="Guru"></div>
-                    <div class="slide"><img src="https://via.placeholder.com/150/1e3a8a/ffffff?text=Cikgu+C" alt="Guru"></div>
-                    <div class="slide"><img src="https://via.placeholder.com/150/1e3a8a/ffffff?text=Cikgu+D" alt="Guru"></div>
-                    <div class="slide"><img src="https://via.placeholder.com/150/1e3a8a/ffffff?text=Cikgu+E" alt="Guru"></div>
-                    <div class="slide"><img src="https://via.placeholder.com/150/1e3a8a/ffffff?text=Cikgu+F" alt="Guru"></div>
-                    <!-- Set Gambar 2 (Salinan pendua untuk kesan infinite loop) -->
-                    <div class="slide"><img src="https://via.placeholder.com/150/1e3a8a/ffffff?text=Cikgu+A" alt="Guru"></div>
-                    <div class="slide"><img src="https://via.placeholder.com/150/1e3a8a/ffffff?text=Cikgu+B" alt="Guru"></div>
-                    <div class="slide"><img src="https://via.placeholder.com/150/1e3a8a/ffffff?text=Cikgu+C" alt="Guru"></div>
-                    <div class="slide"><img src="https://via.placeholder.com/150/1e3a8a/ffffff?text=Cikgu+D" alt="Guru"></div>
-                    <div class="slide"><img src="https://via.placeholder.com/150/1e3a8a/ffffff?text=Cikgu+E" alt="Guru"></div>
-                    <div class="slide"><img src="https://via.placeholder.com/150/1e3a8a/ffffff?text=Cikgu+F" alt="Guru"></div>
+                    <!-- Gambar dari Firebase akan dimasukkan di sini secara automatik oleh app.js -->
+                    <div style="text-align: center; color: #64748b;">⏳ Memuat turun gambar guru...</div>
                 </div>
             </div>
         </div>
     </main>
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+    <!-- Fail Konfigurasi Firebase -->
+    <script src="firebase-config.js"></script>
+
+    <!-- Otak Utama Sistem -->
     <script src="app.js"></script>
 </body>
 </html>
