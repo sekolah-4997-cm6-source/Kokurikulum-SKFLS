@@ -124,7 +124,7 @@ async function renderSliderList() {
     }
 }
 
-// Fungsi pembantu untuk menukar fail gambar menjadi teks (Base64)
+// Fungsi pembantu untuk menukar fail gambar menjadi Base64
 function readFileAsBase64(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -134,14 +134,64 @@ function readFileAsBase64(file) {
     });
 }
 
-// Fungsi untuk tambah slider baru (MENGGUNAKAN GOOGLE DRIVE APPS SCRIPT)
+// Fungsi pembantu mengekstrak ID fail Google Drive ke format pautan gambar sah
+function formatDriveUrl(rawUrl) {
+    if (!rawUrl) return "https://via.placeholder.com/150?text=Tiada+Gambar";
+    // Cari susunan ID Google Drive (biasanya 25-50 aksara)
+    const match = rawUrl.match(/[-\w]{25,}/);
+    if (match) {
+        return `https://lh3.googleusercontent.com/d/${match[0]}`;
+    }
+    return rawUrl;
+}
+
+// Fungsi panggil senarai slider dalam Admin Panel
+async function renderSliderList() {
+    const tableBody = document.getElementById("sliderTableBody");
+    tableBody.innerHTML = "<tr><td colspan='4' style='text-align:center; padding:15px;'>⏳ Memuat turun data slider...</td></tr>";
+
+    try {
+        const snapshot = await db.collection("sliders").get();
+        tableBody.innerHTML = "";
+
+        if (snapshot.empty) {
+            tableBody.innerHTML = "<tr><td colspan='4' style='text-align:center; padding:15px; color:#64748b;'>Tiada data guru untuk slider setakat ini.</td></tr>";
+            return;
+        }
+
+        snapshot.forEach(doc => {
+            const slider = doc.data();
+            const id = doc.id;
+            const displayImageUrl = formatDriveUrl(slider.imageUrl);
+            
+            const tr = document.createElement("tr");
+            tr.style.borderBottom = "1px solid #e2e8f0";
+
+            tr.innerHTML = `
+                <td style="padding: 12px; text-align: center;">
+                    <img src="${displayImageUrl}" alt="Gambar" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%; border: 2px solid #cbd5e1;" onerror="this.src='https://via.placeholder.com/50?text=Ralat'">
+                </td>
+                <td style="padding: 12px; font-weight: 600;">${slider.name}</td>
+                <td style="padding: 12px; color: #64748b;">${slider.role}</td>
+                <td style="padding: 12px; text-align: center;">
+                    <button onclick="deleteSlider('${id}')" style="background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold;">🗑️ Buang</button>
+                </td>
+            `;
+            tableBody.appendChild(tr);
+        });
+    } catch (error) {
+        console.error("Ralat memuat turun slider:", error);
+        tableBody.innerHTML = "<tr><td colspan='4' style='text-align:center; padding:15px; color:red;'>Gagal menyambung ke pangkalan data.</td></tr>";
+    }
+}
+
+// Fungsi muat naik ke Google Drive melalui Google Apps Script
 async function addSlider() {
     const name = document.getElementById("newSliderName").value.trim();
     const role = document.getElementById("newSliderRole").value.trim();
     const fileInput = document.getElementById("newSliderImageFile");
     const file = fileInput.files[0];
 
-    // Semak jika ada ruangan yang kosong
     if (!name || !role || !file) {
         alert("⚠️ Sila isi nama, jawatan, dan muat naik gambar!");
         return;
@@ -153,13 +203,11 @@ async function addSlider() {
     btn.disabled = true;
 
     try {
-        // 1. Tukar gambar ke format Base64
         const base64Data = await readFileAsBase64(file);
         
-        // --- MASUKKAN WEB APP URL GOOGLE APPS SCRIPT CIKGU DI BAWAH ---
+        // Pautan Google Apps Script anda
         const scriptUrl = "https://script.google.com/macros/s/AKfycbzpX9ZnuO2ru4Cv9E0a4kDMHo036KXgwv9GQxrkd61_cw5iNubl86dvxWbEotXPp_ND/exec"; 
 
-        // 2. Hantar gambar ke Google Apps Script
         const response = await fetch(scriptUrl, {
             method: 'POST',
             body: JSON.stringify({
@@ -167,7 +215,6 @@ async function addSlider() {
                 mimeType: file.type,
                 base64: base64Data
             }),
-            // Halang ralat CORS
             headers: {
                 "Content-Type": "text/plain;charset=utf-8" 
             }
@@ -175,23 +222,20 @@ async function addSlider() {
 
         const result = await response.json();
 
-        // 3. Jika berjaya upload, simpan URL ke dalam Firestore
         if (result.status === 'success') {
             await db.collection("sliders").add({
                 name: name,
                 role: role,
-                imageUrl: result.url, // URL ini datang dari Google Drive
+                imageUrl: result.url,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
             });
 
             alert("✅ Gambar berjaya disimpan di Drive dan pangkalan data dikemas kini!");
             
-            // Kosongkan form
             document.getElementById("newSliderName").value = "";
             document.getElementById("newSliderRole").value = "";
             fileInput.value = "";
             
-            // Refresh jadual
             renderSliderList();
         } else {
             throw new Error(result.message);
@@ -201,7 +245,6 @@ async function addSlider() {
         console.error("Ralat upload Drive:", error);
         alert("❌ Gagal memuat naik gambar. " + error.message);
     } finally {
-        // Kembalikan keadaan butang kepada asal
         btn.innerHTML = originalText;
         btn.disabled = false;
     }
