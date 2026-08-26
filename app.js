@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const sidebar = document.getElementById("sidebar");
     const btnPelawat = document.getElementById("btnPelawat");
     const btnGuru = document.getElementById("btnGuru");
-    const btnLoginTop = document.getElementById("btnLoginTop");
 
     // Fungsi: Apabila klik 'Pelawat / Pegawai'
     btnPelawat.addEventListener("click", () => {
@@ -33,7 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
         
     });    
     
-    btnLoginTop.addEventListener("click", handleLoginClick);
 
     // Fungsi Interaktif: Hentikan animasi gambar apabila mouse berada di atasnya (Hover to pause)
     const slideTrack = document.querySelector(".slide-track");
