@@ -295,38 +295,38 @@ header {
    ========================================== */
 .slider {
     width: 100%;
-    overflow-x: auto; /* Membenarkan pengguna scroll manual (kiri/kanan) */
-    overflow-y: hidden;
-    white-space: nowrap;
-    -ms-overflow-style: none;  /* Sembunyikan scrollbar di IE/Edge */
-    scrollbar-width: none;  /* Sembunyikan scrollbar di Firefox */
+    overflow-x: auto; 
+    /* DIBUANG: overflow-y: hidden; (supaya teks di bawah tak terpotong) */
+    padding-bottom: 25px; /* Tambah ruang di bawah untuk teks bernafas */
+    -ms-overflow-style: none;  
+    scrollbar-width: none;  
 }
 
-/* Sembunyikan scrollbar untuk Chrome, Safari dan Opera supaya nampak kemas */
 .slider::-webkit-scrollbar {
     display: none;
 }
 
 .slide-track {
     display: flex;
-    gap: 25px; /* Jarak antara kad guru */
+    gap: 25px; 
     padding: 15px 0;
-    /* Kita buang 'animation: scroll' kerana kita akan guna JavaScript */
+    align-items: flex-start; /* Pastikan semua kad bermula selari dari atas */
 }
 
 .slide {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 180px; /* Lebar tetap untuk satu kad guru */
-    flex-shrink: 0; /* Pastikan saiz tidak kemek */
+    width: 180px; 
+    flex-shrink: 0; 
 }
 
 .slide img {
     width: 160px;
-    height: 160px; /* Width dan height sama = Segi empat sama */
-    object-fit: cover; /* Potong gambar secara profesional (tidak kemek) */
-    border-radius: 12px; /* Bucu petak sedikit bulat (rounded corners) */
+    height: 160px; 
+    object-fit: cover; 
+    object-position: top center; /* TAMBAHAN PENTING: Fokus crop pada bahagian atas (muka) */
+    border-radius: 12px; 
     border: 2px solid #e2e8f0;
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
@@ -335,7 +335,6 @@ header {
 .slide-info {
     text-align: center;
     margin-top: 12px;
-    white-space: normal; /* Benarkan teks panjang turun ke baris bawah */
     width: 100%;
 }
 
