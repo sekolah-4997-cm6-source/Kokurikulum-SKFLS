@@ -27,7 +27,12 @@ document.addEventListener("DOMContentLoaded", () => {
         // signInWithGoogle();
     };
 
-    btnGuru.addEventListener("click", handleLoginClick);
+    btnGuru.addEventListener("click", () => {
+        // Bawa pengguna ke halaman pilihan peranan guru
+        window.location.href = "paparan_guru.html";
+        
+    });    
+    
     btnLoginTop.addEventListener("click", handleLoginClick);
 
     // Fungsi Interaktif: Hentikan animasi gambar apabila mouse berada di atasnya (Hover to pause)
