@@ -277,11 +277,11 @@ header {
 }
 
 .slide img {
-    border-radius: 50%; /* Jadikan gambar bulat */
-    border: 3px solid #1e3a8a;
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
+    width: 150px; /* Atau saiz yang anda mahu */
+    height: 150px; /* Pastikan width dan height sama untuk bentuk bulat */
+    object-fit: cover; /* Supaya gambar tidak 'penyek' */
+    border-radius: 50%; /* Untuk jadikan gambar bulat */
+    border: 3px solid #cbd5e1; /* Bingkai sikit bagi cantik */
 }
 
 /* Animasi Pergerakan */
