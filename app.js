@@ -19,7 +19,7 @@ async function paparSliderGuru() {
             const data = doc.data();
             let directImageUrl = "https://via.placeholder.com/150?text=Tiada+Gambar";
 
-            // Tukar URL Drive ke format CDN Google
+            // Tukar URL Drive ke format CDN
             if (data.imageUrl) {
                 const match = data.imageUrl.match(/[-\w]{25,}/);
                 if (match) {
@@ -27,15 +27,24 @@ async function paparSliderGuru() {
                 }
             }
 
+            // Kemas kini: Tambah HTML untuk nama (slide-name) dan jawatan (slide-role)
             htmlGambar += `
                 <div class="slide">
-                    <img src="${directImageUrl}" alt="Gambar ${data.name}" title="${data.name} - ${data.role}" 
-                         onerror="this.src='https://via.placeholder.com/150?text=Ralat+Gambar'">
+                    <img src="${directImageUrl}" alt="Gambar ${data.name}" 
+                         onerror="this.src='https://via.placeholder.com/150?text=Ralat'">
+                    <div class="slide-info">
+                        <p class="slide-name">${data.name}</p>
+                        <p class="slide-role">${data.role}</p>
+                    </div>
                 </div>
             `;
         });
 
+        // Gandakan dua kali untuk kesan infinite scroll yang bersambung cantik
         sliderTrack.innerHTML = htmlGambar + htmlGambar;
+        
+        // Panggil fungsi auto-scroll pintar selepas gambar dimuatkan
+        setupAutoScroll();
 
     } catch (error) {
         console.error("Ralat ketika menarik data slider: ", error);
@@ -44,11 +53,70 @@ async function paparSliderGuru() {
 }
 
 // ==========================================
+// FUNGSI AUTO-SCROLL PINTAR (BOLEH DI-SCROLL MANUAL)
+// ==========================================
+function setupAutoScroll() {
+    const slider = document.querySelector('.slider');
+    if (!slider) return;
+
+    let scrollAmount = 1; // Kelajuan bergerak (tambah nombor untuk lebih laju)
+    let scrollInterval;
+    let isUserInteracting = false;
+    let resumeTimeout;
+
+    // Fungsi jalankan animasi scroll
+    const startScroll = () => {
+        if (scrollInterval) clearInterval(scrollInterval);
+        scrollInterval = setInterval(() => {
+            if (!isUserInteracting) {
+                slider.scrollLeft += scrollAmount;
+                
+                // Jika dah sampai separuh jalan (kerana content didarab 2), 
+                // patah balik ke mula secara senyap-senyap (seamless loop)
+                if (slider.scrollLeft >= slider.scrollWidth / 2) {
+                    slider.scrollLeft = 0;
+                }
+            }
+        }, 20); // ms kekerapan pergerakan
+    };
+
+    // Fungsi hentikan sementara bila pengguna klik/sentuh/scroll
+    const stopScroll = () => {
+        isUserInteracting = true;
+        clearInterval(scrollInterval);
+        clearTimeout(resumeTimeout);
+        
+        // Lepas pengguna berhenti kacau selama 2.5 saat, jalan balik
+        resumeTimeout = setTimeout(() => {
+            isUserInteracting = false;
+            startScroll();
+        }, 2500);
+    };
+
+    // Dengar tindak balas pengguna (scroll, touch, mouse)
+    slider.addEventListener('mousedown', stopScroll);
+    slider.addEventListener('touchstart', stopScroll, { passive: true });
+    slider.addEventListener('wheel', stopScroll, { passive: true });
+    slider.addEventListener('scroll', stopScroll, { passive: true });
+    
+    // Berhenti bila tetikus diletakkan di atas (hover)
+    slider.addEventListener('mouseover', stopScroll);
+    slider.addEventListener('mouseout', () => {
+        // Cepatkan jalan semula bila tetikus dialihkan
+        clearTimeout(resumeTimeout);
+        isUserInteracting = false;
+        startScroll();
+    });
+
+    // Mulakan pergerakan
+    startScroll();
+}
+
+// ==========================================
 // FUNGSI UTAMA (DIMUATKAN APABILA HALAMAN DIBUKA)
 // ==========================================
 document.addEventListener("DOMContentLoaded", () => {
     
-    // 1. Fungsi untuk memuatkan navbar ke dalam semua halaman
     const loadNavbar = () => {
         fetch('navbar.html')
             .then(response => {
@@ -56,22 +124,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 return response.text();
             })
             .then(data => {
-                // Masukkan kod navbar ke dalam container
                 document.getElementById('navbar-container').innerHTML = data;
-                
-                // Selepas navbar siap dimuatkan, baru kita jalankan fungsi butang
                 setupButtons();
             })
             .catch(error => console.error('Ralat:', error));
     };
 
-    // 2. Fungsi untuk butang-butang pada halaman
     const setupButtons = () => {
         const sidebar = document.getElementById("sidebar");
         const btnPelawat = document.getElementById("btnPelawat");
         const btnGuru = document.getElementById("btnGuru");
         
-        // --- Fungsi Halaman Utama (index.html) ---
         if (btnPelawat) {
             btnPelawat.addEventListener("click", () => {
                 if(sidebar) sidebar.classList.remove("blurred");
@@ -84,20 +147,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 window.location.href = "paparan_guru.html";
             });
         }
-
-        // --- Hentikan animasi slider apabila dihalakan (Hover) ---
-        const slideTrack = document.querySelector(".slide-track");
-        if (slideTrack) {
-            slideTrack.addEventListener("mouseover", () => {
-                slideTrack.style.animationPlayState = "paused";
-            });
-            slideTrack.addEventListener("mouseout", () => {
-                slideTrack.style.animationPlayState = "running";
-            });
-        }
+        
+        // Logik memberhentikan animasi pada '.slide-track' telah dibuang dari sini 
+        // kerana fungsi setupAutoScroll() di atas telah mengambil alih peranannya secara menyeluruh.
     };
 
-    // 3. JALANKAN SEMUA FUNGSI
-    loadNavbar();          // Panggil Navbar
-    paparSliderGuru();     // Panggil Slider Gambar
+    loadNavbar();          
+    paparSliderGuru();     
 });
