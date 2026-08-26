@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSC Koku - SK Felda Laka Selatan</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts untuk tipografi moden -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Sidebar Kiri (Diblurkan pada awalnya) -->
+    <nav id="sidebar" class="blurred">
+        <div class="sidebar-header">
+            <h2>OSC KOKU</h2>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" class="active">Dashboard</a></li>
+            <li><a href="#">Fail Induk Koku</a></li>
+            <li><a href="#">Sukan & 1M1S</a></li>
+            <li><a href="#">Unit Beruniform</a></li>
+            <li><a href="#">Kelab & Persatuan</a></li>
+            <li><a href="#">Sistem PAJSK</a></li>
+        </ul>
+    </nav>
+
+    <!-- Ruangan Utama -->
+    <main id="main-content">
+        <!-- Header Atas -->
+        <header>
+            <div class="spacer"></div>
+            <button id="btnLoginTop" class="btn-login">Log Masuk DELIMa</button>
+        </header>
+
+        <!-- Kandungan Dashboard -->
+        <div class="dashboard-container">
+            <div class="hero-section">
+                <h1>Selamat Datang ke Pusat Rujukan Kokurikulum</h1>
+                <h2>SK Felda Laka Selatan</h2>
+                <p>Sistem Pengurusan Dokumen dan Pemantauan Berpusat (Paperless)</p>
+            </div>
+
+            <!-- Pilihan Akses -->
+            <div class="access-section" id="accessSection">
+                <h3>Sila Pilih Akses Anda</h3>
+                <div class="card-container">
+                    <button class="access-card guru-card" id="btnGuru">
+                        <div class="card-icon">👨‍🏫</div>
+                        <h4>Guru / Pentadbir</h4>
+                        <p>Log masuk untuk pengurusan fail dan kemas kini data.</p>
+                    </button>
+                    
+                    <button class="access-card pelawat-card" id="btnPelawat">
+                        <div class="card-icon">👥</div>
+                        <h4>Pelawat / Pegawai</h4>
+                        <p>Akses rujukan dan semakan fail tanpa log masuk.</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Infinite Scroll Gambar Guru -->
+        <div class="slider-section">
+            <h4>Barisan Guru Pemandu Kecemerlangan Kokurikulum</h4>
+            <div class="slider">
+                <div class="slide-track">
+                    <!-- Set Gambar 1 (Gantikan src dengan gambar sebenar nanti) -->
+                    <div class="slide"><img src="https://via.placeholder.com/150/1e3a8a/ffffff?text=Cikgu+A" alt="Guru"></div>
+                    <div class="slide"><img src="https://via.placeholder.com/150/1e3a8a/ffffff?text=Cikgu+B" alt="Guru"></div>
+                    <div class="slide"><img src="https://via.placeholder.com/150/1e3a8a/ffffff?text=Cikgu+C" alt="Guru"></div>
+                    <div class="slide"><img src="https://via.placeholder.com/150/1e3a8a/ffffff?text=Cikgu+D" alt="Guru"></div>
+                    <div class="slide"><img src="https://via.placeholder.com/150/1e3a8a/ffffff?text=Cikgu+E" alt="Guru"></div>
+                    <div class="slide"><img src="https://via.placeholder.com/150/1e3a8a/ffffff?text=Cikgu+F" alt="Guru"></div>
+                    <!-- Set Gambar 2 (Salinan pendua untuk kesan infinite loop) -->
+                    <div class="slide"><img src="https://via.placeholder.com/150/1e3a8a/ffffff?text=Cikgu+A" alt="Guru"></div>
+                    <div class="slide"><img src="https://via.placeholder.com/150/1e3a8a/ffffff?text=Cikgu+B" alt="Guru"></div>
+                    <div class="slide"><img src="https://via.placeholder.com/150/1e3a8a/ffffff?text=Cikgu+C" alt="Guru"></div>
+                    <div class="slide"><img src="https://via.placeholder.com/150/1e3a8a/ffffff?text=Cikgu+D" alt="Guru"></div>
+                    <div class="slide"><img src="https://via.placeholder.com/150/1e3a8a/ffffff?text=Cikgu+E" alt="Guru"></div>
+                    <div class="slide"><img src="https://via.placeholder.com/150/1e3a8a/ffffff?text=Cikgu+F" alt="Guru"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
