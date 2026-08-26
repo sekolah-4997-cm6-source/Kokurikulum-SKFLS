@@ -124,39 +124,86 @@ async function renderSliderList() {
     }
 }
 
-// Fungsi untuk tambah slider baru
+// Fungsi pembantu untuk menukar fail gambar menjadi teks (Base64)
+function readFileAsBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result.split(',')[1]);
+        reader.onerror = error => reject(error);
+        reader.readAsDataURL(file);
+    });
+}
+
+// Fungsi untuk tambah slider baru (MENGGUNAKAN GOOGLE DRIVE APPS SCRIPT)
 async function addSlider() {
     const name = document.getElementById("newSliderName").value.trim();
     const role = document.getElementById("newSliderRole").value.trim();
-    const imageUrl = document.getElementById("newSliderImage").value.trim();
+    const fileInput = document.getElementById("newSliderImageFile");
+    const file = fileInput.files[0];
 
     // Semak jika ada ruangan yang kosong
-    if (!name || !role || !imageUrl) {
-        alert("⚠️ Sila isi semua ruangan (Nama, Jawatan, dan URL Gambar)!");
+    if (!name || !role || !file) {
+        alert("⚠️ Sila isi nama, jawatan, dan muat naik gambar!");
         return;
     }
 
+    const btn = event.target;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = "⏳ Memuat naik ke Google Drive...";
+    btn.disabled = true;
+
     try {
-        // Hantar data ke Firestore dalam jadual (collection) "sliders"
-        await db.collection("sliders").add({
-            name: name,
-            role: role,
-            imageUrl: imageUrl,
-            createdAt: firebase.firestore.FieldValue.serverTimestamp() // Simpan masa rekod dicipta
+        // 1. Tukar gambar ke format Base64
+        const base64Data = await readFileAsBase64(file);
+        
+        // --- MASUKKAN WEB APP URL GOOGLE APPS SCRIPT CIKGU DI BAWAH ---
+        const scriptUrl = "https://script.google.com/macros/s/AKfycbzpX9ZnuO2ru4Cv9E0a4kDMHo036KXgwv9GQxrkd61_cw5iNubl86dvxWbEotXPp_ND/exec"; 
+
+        // 2. Hantar gambar ke Google Apps Script
+        const response = await fetch(scriptUrl, {
+            method: 'POST',
+            body: JSON.stringify({
+                filename: Date.now() + '_' + file.name,
+                mimeType: file.type,
+                base64: base64Data
+            }),
+            // Halang ralat CORS
+            headers: {
+                "Content-Type": "text/plain;charset=utf-8" 
+            }
         });
-        
-        alert("✅ Guru berjaya ditambah ke slider!");
-        
-        // Kosongkan form selepas berjaya simpan
-        document.getElementById("newSliderName").value = "";
-        document.getElementById("newSliderRole").value = "";
-        document.getElementById("newSliderImage").value = "";
-        
-        // Refresh jadual secara automatik
-        renderSliderList();
+
+        const result = await response.json();
+
+        // 3. Jika berjaya upload, simpan URL ke dalam Firestore
+        if (result.status === 'success') {
+            await db.collection("sliders").add({
+                name: name,
+                role: role,
+                imageUrl: result.url, // URL ini datang dari Google Drive
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+
+            alert("✅ Gambar berjaya disimpan di Drive dan pangkalan data dikemas kini!");
+            
+            // Kosongkan form
+            document.getElementById("newSliderName").value = "";
+            document.getElementById("newSliderRole").value = "";
+            fileInput.value = "";
+            
+            // Refresh jadual
+            renderSliderList();
+        } else {
+            throw new Error(result.message);
+        }
+
     } catch (error) {
-        console.error("Ralat tambah slider:", error);
-        alert("❌ Gagal menambah guru. " + error.message);
+        console.error("Ralat upload Drive:", error);
+        alert("❌ Gagal memuat naik gambar. " + error.message);
+    } finally {
+        // Kembalikan keadaan butang kepada asal
+        btn.innerHTML = originalText;
+        btn.disabled = false;
     }
 }
 
