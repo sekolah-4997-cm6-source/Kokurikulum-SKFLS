@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilih Peranan - OSC Koku SKFLS</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Sidebar Kiri (Kekal diblurkan) -->
+    <nav id="sidebar" class="blurred">
+        <div class="sidebar-header">
+            <h2>OSC KOKU</h2>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Dashboard</a></li>
+            <li><a href="#">Fail Induk Koku</a></li>
+            <li><a href="#">Sukan & 1M1S</a></li>
+            <li><a href="#">Unit Beruniform</a></li>
+            <li><a href="#">Kelab & Persatuan</a></li>
+            <li><a href="#">Sistem PAJSK</a></li>
+        </ul>
+    </nav>
+
+    <!-- Ruangan Utama -->
+    <main id="main-content">
+        <!-- Header Atas -->
+        <header>
+            <div class="spacer"></div>
+            <button id="btnLoginTop" class="btn-login">Log Masuk DELIMa</button>
+        </header>
+
+        <!-- Kandungan Dashboard -->
+        <div class="dashboard-container">
+            <div class="hero-section">
+                <h2>Sila Pilih Peranan Anda</h2>
+                <p>Log masuk DELIMa diperlukan selepas pemilihan untuk pengesahan akses.</p>
+            </div>
+
+            <!-- Susunan Peranan berdasarkan image_13631e.png -->
+            <div class="roles-layout">
+                <!-- Barisan Atas (5 Kotak) -->
+                <div class="roles-top-row">
+                    <!-- Hujung Kiri -->
+                    <button class="role-box">
+                        <div class="role-icon">📋</div>
+                        <h4>Penyelaras Kokurikulum</h4>
+                    </button>
+                    <!-- Kiri -->
+                    <button class="role-box">
+                        <div class="role-icon">📝</div>
+                        <h4>Setiausaha Kokurikulum</h4>
+                    </button>
+                    <!-- Tengah -->
+                    <button class="role-box pkko-box">
+                        <div class="role-icon">⭐</div>
+                        <h4>Penolong Kanan Kokurikulum</h4>
+                    </button>
+                    <!-- Kanan -->
+                    <button class="role-box">
+                        <div class="role-icon">🏆</div>
+                        <h4>Setiausaha Sukan</h4>
+                    </button>
+                    <!-- Hujung Kanan -->
+                    <button class="role-box">
+                        <div class="role-icon">⛺</div>
+                        <h4>Guru Penasihat</h4>
+                    </button>
+                </div>
+                
+                <!-- Barisan Bawah (1 Kotak Melintang) -->
+                <div class="roles-bottom-row">
+                    <button class="role-box-wide">
+                        <div class="role-icon">👨‍🏫</div>
+                        <h4>Guru Biasa</h4>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
