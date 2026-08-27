@@ -39,6 +39,7 @@
             <li onclick="showTab('tab-navbar')">📑 Pengurusan Navbar</li>
             <li onclick="showTab('tab-slider')">🖼️ Pengurusan Slider</li>
             <li onclick="showTab('tab-trash')">🗑️ Tong Sampah Dokumen</li>
+            <li onclick="showTab('tab-tracker')">📊 Pemantauan Tracker</li>
             <li style="margin-top: 50px; color: #f87171;" onclick="window.location.href='index.html'">⬅ Kembali ke Sistem</li>
         </ul>
     </div>
@@ -126,7 +127,106 @@
             <h3>🗑️ Tong Sampah Dokumen (Soft Delete)</h3>
             <p>Senarai dokumen yang dipadam dan boleh dipulihkan akan diletakkan di sini.</p>
         </div>
+<!-- Tab 5: Pemantauan Tracker -->
+        <div id="tab-tracker" class="admin-card" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                <h2 class="text-xl font-bold text-slate-800 flex items-center">
+                    <i class="fas fa-chart-pie text-blue-600 mr-3"></i> Pemantauan Tracker
+                </h2>
+            </div>
+            <!-- BAHAGIAN 1: TRACKER PANITIA (12 SUBJEK) -->
+            <div class="mb-8">
+                <h3 class="text-sm font-bold text-slate-700 mb-4 flex items-center space-x-2">
+                    <i class="fas fa-list text-blue-500"></i>
+                    <span>Tracker Fail Panitia (12 Subjek)</span>
+                </h3>
+                <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 text-slate-500 text-[11px] uppercase tracking-wider border-b border-slate-100">
+                                <th class="py-3 px-4 font-semibold">Subjek Panitia</th>
+                                <th class="py-3 px-4 text-center font-semibold">Fail 1</th>
+                                <th class="py-3 px-4 text-center font-semibold">Fail 2</th>
+                                <th class="py-3 px-4 text-center font-semibold">Fail 3</th>
+                                <th class="py-3 px-4 text-center font-semibold">Fail 4</th>
+                                <th class="py-3 px-4 text-center font-semibold">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="jadualTrackerBody">
+                            <!-- Data panitia akan dimasukkan di sini oleh JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
+            <!-- BAHAGIAN 2: TRACKER PENGURUSAN (BUKAN PANITIA - 14 KOTAK) -->
+            <div class="mt-8">
+                <h3 class="text-sm font-bold text-slate-700 mb-4 flex items-center space-x-2">
+                    <i class="fas fa-check-square text-blue-500"></i>
+                    <span>Tracker Pengurusan (Bukan Panitia)</span>
+                </h3>
+
+                <!-- Grid 14 Kotak Kategori -->
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                    <div class="bg-blue-50 rounded-xl p-4 border border-blue-100 shadow-sm">
+                        <h4 class="text-xs font-bold text-blue-700 mb-2 border-b border-blue-200 pb-2">1. Pengurusan Unit</h4>
+                        <div id="boxPengurusanUnit"></div>
+                    </div>
+                    <div class="bg-emerald-50 rounded-xl p-4 border border-emerald-100 shadow-sm">
+                        <h4 class="text-xs font-bold text-emerald-700 mb-2 border-b border-emerald-200 pb-2">2. Pekeliling & Makluman</h4>
+                        <div id="boxPekeliling"></div>
+                    </div>
+                    <div class="bg-amber-50 rounded-xl p-4 border border-amber-100 shadow-sm">
+                        <h4 class="text-xs font-bold text-amber-700 mb-2 border-b border-amber-200 pb-2">3. Dokumen Kurikulum</h4>
+                        <div id="boxDokumen"></div>
+                    </div>
+                    <div class="bg-purple-50 rounded-xl p-4 border border-purple-100 shadow-sm">
+                        <h4 class="text-xs font-bold text-purple-700 mb-2 border-b border-purple-200 pb-2">4. Perancangan Kurikulum</h4>
+                        <div id="boxPerancangan"></div>
+                    </div>
+                    <div class="bg-cyan-50 rounded-xl p-4 border border-cyan-100 shadow-sm">
+                        <h4 class="text-xs font-bold text-cyan-700 mb-2 border-b border-cyan-200 pb-2">5. Masa Instruksional</h4>
+                        <div id="boxMasa"></div>
+                    </div>
+                    <div class="bg-rose-50 rounded-xl p-4 border border-rose-100 shadow-sm">
+                        <h4 class="text-xs font-bold text-rose-700 mb-2 border-b border-rose-200 pb-2">6. Mesyuarat Induk</h4>
+                        <div id="boxMesyuarat"></div>
+                    </div>
+                    <div class="bg-indigo-50 rounded-xl p-4 border border-indigo-100 shadow-sm">
+                        <h4 class="text-xs font-bold text-indigo-700 mb-2 border-b border-indigo-200 pb-2">7. Panitia & Program</h4>
+                        <div id="boxPanitiaProgram"></div>
+                    </div>
+                    <div class="bg-teal-50 rounded-xl p-4 border border-teal-100 shadow-sm">
+                        <h4 class="text-xs font-bold text-teal-700 mb-2 border-b border-teal-200 pb-2">8. Pemantauan Kurikulum</h4>
+                        <div id="boxPemantauan"></div>
+                    </div>
+                    <div class="bg-yellow-50 rounded-xl p-4 border border-yellow-100 shadow-sm">
+                        <h4 class="text-xs font-bold text-yellow-700 mb-2 border-b border-yellow-200 pb-2">9. Pentaksiran (PBD)</h4>
+                        <div id="boxPbd"></div>
+                    </div>
+                    <div class="bg-pink-50 rounded-xl p-4 border border-pink-100 shadow-sm">
+                        <h4 class="text-xs font-bold text-pink-700 mb-2 border-b border-pink-200 pb-2">10. UPSA / UASA</h4>
+                        <div id="boxUpsa"></div>
+                    </div>
+                    <div class="bg-red-50 rounded-xl p-4 border border-red-100 shadow-sm">
+                        <h4 class="text-xs font-bold text-red-700 mb-2 border-b border-red-200 pb-2">11. BMI5-9T & SEGAK</h4>
+                        <div id="boxSegak"></div>
+                    </div>
+                    <div class="bg-orange-50 rounded-xl p-4 border border-orange-100 shadow-sm">
+                        <h4 class="text-xs font-bold text-orange-700 mb-2 border-b border-orange-200 pb-2">12. KBAT</h4>
+                        <div id="boxKbat"></div>
+                    </div>
+                    <div class="bg-stone-50 rounded-xl p-4 border border-stone-200 shadow-sm">
+                        <h4 class="text-xs font-bold text-stone-700 mb-2 border-b border-stone-200 pb-2">13. Standard Kualiti</h4>
+                        <div id="boxStandard"></div>
+                    </div>
+                    <div class="bg-sky-50 rounded-xl p-4 border border-sky-100 shadow-sm">
+                        <h4 class="text-xs font-bold text-sky-700 mb-2 border-b border-sky-200 pb-2">14. Pendigitalan ICT</h4>
+                        <div id="boxIct"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
