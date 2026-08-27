@@ -85,45 +85,6 @@ document.addEventListener("DOMContentLoaded", () => {
 // MODUL 3: PENGURUSAN SLIDER (TAB 3)
 // ==========================================
 
-// Fungsi untuk panggil senarai slider dari Firebase
-async function renderSliderList() {
-    const tableBody = document.getElementById("sliderTableBody");
-    tableBody.innerHTML = "<tr><td colspan='4' style='text-align:center; padding:15px;'>⏳ Memuat turun data slider...</td></tr>";
-
-    try {
-        const snapshot = await db.collection("sliders").get();
-        tableBody.innerHTML = ""; // Kosongkan jadual
-
-        if (snapshot.empty) {
-            tableBody.innerHTML = "<tr><td colspan='4' style='text-align:center; padding:15px; color:#64748b;'>Tiada data guru untuk slider setakat ini.</td></tr>";
-            return;
-        }
-
-        snapshot.forEach(doc => {
-            const slider = doc.data();
-            const id = doc.id;
-            
-            const tr = document.createElement("tr");
-            tr.style.borderBottom = "1px solid #e2e8f0";
-
-            tr.innerHTML = `
-                <td style="padding: 12px; text-align: center;">
-                    <img src="${slider.imageUrl}" alt="Gambar" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%; border: 2px solid #cbd5e1;">
-                </td>
-                <td style="padding: 12px; font-weight: 600;">${slider.name}</td>
-                <td style="padding: 12px; color: #64748b;">${slider.role}</td>
-                <td style="padding: 12px; text-align: center;">
-                    <button onclick="deleteSlider('${id}')" style="background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold;">🗑️ Buang</button>
-                </td>
-            `;
-            tableBody.appendChild(tr);
-        });
-    } catch (error) {
-        console.error("Ralat memuat turun slider:", error);
-        tableBody.innerHTML = "<tr><td colspan='4' style='text-align:center; padding:15px; color:red;'>Gagal menyambung ke pangkalan data.</td></tr>";
-    }
-}
-
 // Fungsi pembantu untuk menukar fail gambar menjadi Base64
 function readFileAsBase64(file) {
     return new Promise((resolve, reject) => {
