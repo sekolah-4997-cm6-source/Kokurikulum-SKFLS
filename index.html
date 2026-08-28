@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Utama - OSC Koku SK Felda Laka Selatan</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts untuk tipografi moden -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS tambahan ringkas untuk reka letak Dashboard Utama */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #e2e8f0;
+            margin-bottom: 30px;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 0 20px;
+        }
+        .menu-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .menu-card:hover {
+            transform: translateY(-5px);
+        }
+        .menu-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        .btn-action {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #0284c7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            width: 100%;
+        }
+        .btn-action:hover {
+            background-color: #0369a1;
+        }
+        .btn-logout {
+            padding: 10px 15px;
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Container untuk Navbar (Akan dimuatkan melalui app.js) -->
+    <div id="navbar-container"></div>
+
+    <!-- Ruangan Utama -->
+    <main id="main-content">
+        
+        <!-- Header Dashboard -->
+        <header class="dashboard-header">
+            <div>
+                <h2>Dashboard Sistem</h2>
+                <p>Pengurusan Dokumen & Pemantauan OSC Koku</p>
+            </div>
+            <!-- Butang Log Keluar akan kembali ke portal muka depan -->
+            <button id="btnLogKeluar" class="btn-logout" onclick="window.location.href='portal.html'">🚪 Log Keluar</button>
+        </header>
+
+        <!-- Menu Utama Dashboard -->
+        <div class="dashboard-grid">
+            
+            <!-- Kad Pengurusan Fail -->
+            <div class="menu-card">
+                <div class="menu-icon">📂</div>
+                <h3>Pengurusan Fail</h3>
+                <p>Muat naik, kemas kini, dan urus fail dokumen Unit Beruniform, Kelab & Persatuan.</p>
+                <button class="btn-action" onclick="window.location.href='pengurusan-fail.html'">Urus Fail</button>
+            </div>
+
+            <!-- Kad Pemantauan -->
+            <div class="menu-card">
+                <div class="menu-icon">📊</div>
+                <h3>Status Pemantauan</h3>
+                <p>Semak status penghantaran laporan dan prestasi kelab kokurikulum terkini.</p>
+                <button class="btn-action" onclick="window.location.href='pemantauan.html'">Lihat Status</button>
+            </div>
+
+            <!-- Kad Laporan Aktiviti -->
+            <div class="menu-card">
+                <div class="menu-icon">📝</div>
+                <h3>Laporan Aktiviti</h3>
+                <p>Hantar laporan mingguan dan dokumentasi bergambar untuk setiap perjumpaan.</p>
+                <button class="btn-action" onclick="window.location.href='laporan.html'">Hantar Laporan</button>
+            </div>
+
+            <!-- Kad Rujukan Modul (Sesuai untuk Pelawat juga) -->
+            <div class="menu-card">
+                <div class="menu-icon">📚</div>
+                <h3>Modul & Rujukan</h3>
+                <p>Akses bank bahan, modul KPM, dan panduan pelaksanaan kokurikulum.</p>
+                <button class="btn-action" onclick="window.location.href='rujukan.html'">Buka Rujukan</button>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Firebase SDK (Sama seperti fail asal) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+    <!-- Fail Konfigurasi Firebase -->
+    <script src="firebase-config.js"></script>
+
+    <!-- Otak Utama Sistem -->
+    <script src="app.js"></script>
+</body>
+</html>
