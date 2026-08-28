@@ -492,3 +492,65 @@ header {
     background-color: #cbd5e1;
     color: #1e293b;
 }
+
+
+/* ==========================================
+   REKA BENTUK JADUAL DOKUMEN (DYNAMIC VIEW)
+   ========================================== */
+
+.table-container {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 0 20px 30px 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    overflow-x: auto;
+}
+
+.doc-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+.doc-table th, .doc-table td {
+    padding: 15px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.doc-table th {
+    background-color: #f8fafc;
+    color: #475569;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+.doc-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.doc-table tbody tr:hover {
+    background-color: #f1f5f9; /* Berubah warna bila tertikus dihalakan */
+}
+
+/* Butang kecil dalam jadual (untuk Lihat, Muat Turun, Padam) */
+.btn-small {
+    padding: 6px 12px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    color: white;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn-lihat { background-color: #3b82f6; }
+.btn-lihat:hover { background-color: #2563eb; }
+
+.btn-padam { background-color: #ef4444; }
+.btn-padam:hover { background-color: #dc2626; }
