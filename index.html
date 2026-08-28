@@ -8,6 +8,13 @@
     <!-- Google Fonts untuk tipografi moden -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Memastikan navbar tepi tidak kabur (unblur) */
+        #navbar-container, 
+        #navbar-container * {
+            filter: none !important;
+            backdrop-filter: none !important;
+        }
+
         /* CSS tambahan ringkas untuk reka letak Dashboard Utama */
         .dashboard-header {
             display: flex;
@@ -24,35 +31,8 @@
             gap: 20px;
             padding: 0 20px;
         }
-        .menu-card {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-        .menu-card:hover {
-            transform: translateY(-5px);
-        }
-        .menu-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-        }
-        .btn-action {
-            margin-top: 15px;
-            padding: 10px 20px;
-            background-color: #0284c7;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            width: 100%;
-        }
-        .btn-action:hover {
-            background-color: #0369a1;
-        }
+        
+        /* Kekalkan style butang log keluar */
         .btn-logout {
             padding: 10px 15px;
             background-color: #ef4444;
@@ -84,39 +64,7 @@
 
         <!-- Menu Utama Dashboard -->
         <div class="dashboard-grid">
-            
-            <!-- Kad Pengurusan Fail -->
-            <div class="menu-card">
-                <div class="menu-icon">📂</div>
-                <h3>Pengurusan Fail</h3>
-                <p>Muat naik, kemas kini, dan urus fail dokumen Unit Beruniform, Kelab & Persatuan.</p>
-                <button class="btn-action" onclick="window.location.href='pengurusan-fail.html'">Urus Fail</button>
-            </div>
-
-            <!-- Kad Pemantauan -->
-            <div class="menu-card">
-                <div class="menu-icon">📊</div>
-                <h3>Status Pemantauan</h3>
-                <p>Semak status penghantaran laporan dan prestasi kelab kokurikulum terkini.</p>
-                <button class="btn-action" onclick="window.location.href='pemantauan.html'">Lihat Status</button>
-            </div>
-
-            <!-- Kad Laporan Aktiviti -->
-            <div class="menu-card">
-                <div class="menu-icon">📝</div>
-                <h3>Laporan Aktiviti</h3>
-                <p>Hantar laporan mingguan dan dokumentasi bergambar untuk setiap perjumpaan.</p>
-                <button class="btn-action" onclick="window.location.href='laporan.html'">Hantar Laporan</button>
-            </div>
-
-            <!-- Kad Rujukan Modul (Sesuai untuk Pelawat juga) -->
-            <div class="menu-card">
-                <div class="menu-icon">📚</div>
-                <h3>Modul & Rujukan</h3>
-                <p>Akses bank bahan, modul KPM, dan panduan pelaksanaan kokurikulum.</p>
-                <button class="btn-action" onclick="window.location.href='rujukan.html'">Buka Rujukan</button>
-            </div>
-
+            <!-- Kad-kad telah dikosongkan untuk sementara waktu -->
         </div>
 
     </main>
