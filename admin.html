@@ -124,61 +124,377 @@
             <p>Senarai dokumen yang dipadam dan boleh dipulihkan akan diletakkan di sini.</p>
         </div>
 
-        <!-- Tab 5: Pemantauan Tracker -->
-        <div id="tab-tracker" class="admin-card tab-hidden">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-                <h2 class="text-xl font-bold text-slate-800 flex items-center">
-                    <i class="fas fa-chart-pie text-blue-600 mr-3"></i> Pemantauan Tracker
-                </h2>
-            </div>
+<!-- Tab 5: Pemantauan Tracker KOKU (Rekaan Baharu Penuh) -->
+        <div id="tab-tracker" class="admin-card tab-hidden" style="font-family: 'Poppins', sans-serif;">
             
-            <div class="mb-8">
-                <h3 class="text-sm font-bold text-slate-700 mb-4 flex items-center space-x-2">
-                    <i class="fas fa-list text-blue-500"></i>
-                    <span>Tracker Fail Panitia (12 Subjek)</span>
-                </h3>
-                <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-slate-50 text-slate-500 text-[11px] uppercase tracking-wider border-b border-slate-100">
-                                <th class="py-3 px-4 font-semibold">Subjek Panitia</th>
-                                <th class="py-3 px-4 text-center font-semibold">Fail 1</th>
-                                <th class="py-3 px-4 text-center font-semibold">Fail 2</th>
-                                <th class="py-3 px-4 text-center font-semibold">Fail 3</th>
-                                <th class="py-3 px-4 text-center font-semibold">Fail 4</th>
-                                <th class="py-3 px-4 text-center font-semibold">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="jadualTrackerBody"></tbody>
-                    </table>
+            <!-- CSS Khas untuk Scrollbar Kad Tracker -->
+            <style>
+                .tracker-list::-webkit-scrollbar { width: 4px; }
+                .tracker-list::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
+                .tracker-list::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+                .tracker-list::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+                .tracker-subtitle { font-size: 10px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 12px; margin-bottom: 4px; padding-bottom: 2px; border-bottom: 1px dashed #e2e8f0; }
+            </style>
+
+            <!-- Header Tracker -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
+                <div>
+                    <h2 class="text-2xl font-bold text-[#1e3a8a] flex items-center m-0">
+                        <i class="fas fa-chart-pie text-[#3b82f6] mr-3"></i> Pemantauan Status Fail Koku
+                    </h2>
+                    <p class="text-slate-500 text-sm mt-1">Pantau status dokumen yang telah/belum dimuat naik mengikut senarai penuh 7 kategori utama.</p>
                 </div>
+                <button onclick="alert('Fungsi kemas kini akan disambung ke pangkalan data (Firebase) nanti.')" class="bg-[#1e3a8a] hover:bg-blue-800 text-white px-4 py-2 rounded-md text-sm font-semibold transition shadow-sm flex items-center">
+                    <i class="fas fa-sync-alt mr-2"></i> Kemas Kini Status
+                </button>
             </div>
 
-            <div class="mt-8">
-                <h3 class="text-sm font-bold text-slate-700 mb-4 flex items-center space-x-2">
-                    <i class="fas fa-check-square text-blue-500"></i>
-                    <span>Tracker Pengurusan (Bukan Panitia)</span>
-                </h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                    <div class="bg-blue-50 rounded-xl p-4 border border-blue-100 shadow-sm"><h4 class="text-xs font-bold text-blue-700 mb-2 border-b border-blue-200 pb-2"><i class="fas fa-sitemap mr-1"></i> 1. Pengurusan Unit</h4><div id="boxPengurusanUnit"></div></div>
-                    <div class="bg-emerald-50 rounded-xl p-4 border border-emerald-100 shadow-sm"><h4 class="text-xs font-bold text-emerald-700 mb-2 border-b border-emerald-200 pb-2"><i class="fas fa-file-contract mr-1"></i> 2. Pekeliling & Makluman</h4><div id="boxPekeliling"></div></div>
-                    <div class="bg-amber-50 rounded-xl p-4 border border-amber-100 shadow-sm"><h4 class="text-xs font-bold text-amber-700 mb-2 border-b border-amber-200 pb-2"><i class="fas fa-folder-open mr-1"></i> 3. Dokumen Kurikulum</h4><div id="boxDokumen"></div></div>
-                    <div class="bg-purple-50 rounded-xl p-4 border border-purple-100 shadow-sm"><h4 class="text-xs font-bold text-purple-700 mb-2 border-b border-purple-200 pb-2"><i class="fas fa-chart-line mr-1"></i> 4. Perancangan Kurikulum</h4><div id="boxPerancangan"></div></div>
-                    <div class="bg-cyan-50 rounded-xl p-4 border border-cyan-100 shadow-sm"><h4 class="text-xs font-bold text-cyan-700 mb-2 border-b border-cyan-200 pb-2"><i class="fas fa-clock mr-1"></i> 5. Masa Instruksional</h4><div id="boxMasa"></div></div>
-                    <div class="bg-rose-50 rounded-xl p-4 border border-rose-100 shadow-sm"><h4 class="text-xs font-bold text-rose-700 mb-2 border-b border-rose-200 pb-2"><i class="fas fa-users mr-1"></i> 6. Mesyuarat Induk</h4><div id="boxMesyuarat"></div></div>
-                    <div class="bg-indigo-50 rounded-xl p-4 border border-indigo-100 shadow-sm"><h4 class="text-xs font-bold text-indigo-700 mb-2 border-b border-indigo-200 pb-2"><i class="fas fa-graduation-cap mr-1"></i> 7. Panitia & Program</h4><div id="boxPanitiaProgram"></div></div>
-                    <div class="bg-teal-50 rounded-xl p-4 border border-teal-100 shadow-sm"><h4 class="text-xs font-bold text-teal-700 mb-2 border-b border-teal-200 pb-2"><i class="fas fa-tasks mr-1"></i> 8. Pemantauan Kurikulum</h4><div id="boxPemantauan"></div></div>
-                    <div class="bg-yellow-50 rounded-xl p-4 border border-yellow-100 shadow-sm"><h4 class="text-xs font-bold text-yellow-700 mb-2 border-b border-yellow-200 pb-2"><i class="fas fa-spell-check mr-1"></i> 9. Pentaksiran (PBD)</h4><div id="boxPbd"></div></div>
-                    <div class="bg-pink-50 rounded-xl p-4 border border-pink-100 shadow-sm"><h4 class="text-xs font-bold text-pink-700 mb-2 border-b border-pink-200 pb-2"><i class="fas fa-award mr-1"></i> 10. UPSA / UASA</h4><div id="boxUpsa"></div></div>
-                    <div class="bg-red-50 rounded-xl p-4 border border-red-100 shadow-sm"><h4 class="text-xs font-bold text-red-700 mb-2 border-b border-red-200 pb-2"><i class="fas fa-heartbeat mr-1"></i> 11. BMI5-9T & SEGAK</h4><div id="boxSegak"></div></div>
-                    <div class="bg-orange-50 rounded-xl p-4 border border-orange-100 shadow-sm"><h4 class="text-xs font-bold text-orange-700 mb-2 border-b border-orange-200 pb-2"><i class="fas fa-brain mr-1"></i> 12. KBAT</h4><div id="boxKbat"></div></div>
-                    <div class="bg-stone-50 rounded-xl p-4 border border-stone-200 shadow-sm"><h4 class="text-xs font-bold text-stone-700 mb-2 border-b border-stone-200 pb-2"><i class="fas fa-star text-amber-500 mr-1"></i> 13. Standard Kualiti</h4><div id="boxStandard"></div></div>
-                    <div class="bg-sky-50 rounded-xl p-4 border border-sky-100 shadow-sm"><h4 class="text-xs font-bold text-sky-700 mb-2 border-b border-sky-200 pb-2"><i class="fas fa-laptop-code mr-1"></i> 14. Pendigitalan ICT</h4><div id="boxIct"></div></div>
+            <!-- Kad-kad 7 Kategori Fail Kokurikulum -->
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+
+                <!-- 1. Fail Induk Kokurikulum -->
+                <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm relative overflow-hidden transition hover:shadow-md flex flex-col h-80">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-blue-600"></div>
+                    <h4 class="text-sm font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2 shrink-0">
+                        <i class="fas fa-folder-open text-blue-500 mr-2"></i> 1. Fail Induk Kokurikulum
+                    </h4>
+                    <div class="space-y-1 text-[12px] overflow-y-auto tracker-list pr-2 flex-1">
+                        <!-- Item List -->
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2" title="Pekeliling Ikhtisas (KPM/JPN/PPD)">Pekeliling Ikhtisas (KPM/JPN/PPD)</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Dasar Kokurikulum Sekolah</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Carta Organisasi Induk</span>
+                            <span class="bg-rose-100 text-rose-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-times mr-1"></i> Kosong</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Takwim & Perancangan Tahunan</span>
+                            <span class="bg-amber-100 text-amber-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-spinner mr-1"></i> Semakan</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Minit Mesyuarat Induk</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Senarai Nama Guru Penasihat</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Jadual Pelaksanaan Aktiviti</span>
+                            <span class="bg-rose-100 text-rose-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-times mr-1"></i> Kosong</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Surat Lantikan Guru & JK</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Perlembagaan Kelab/Unit</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Laporan Tahunan Keseluruhan</span>
+                            <span class="bg-rose-100 text-rose-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-times mr-1"></i> Kosong</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Data & Analisis PAJSK Sekolah</span>
+                            <span class="bg-amber-100 text-amber-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-spinner mr-1"></i> Semakan</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Pemantauan & Pencerapan</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- 2. Fail Setiap Unit Koku -->
+                <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm relative overflow-hidden transition hover:shadow-md flex flex-col h-80">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-emerald-500"></div>
+                    <h4 class="text-sm font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2 shrink-0">
+                        <i class="fas fa-users text-emerald-500 mr-2"></i> 2. Fail Setiap Unit Koku
+                    </h4>
+                    <div class="space-y-1 text-[12px] overflow-y-auto tracker-list pr-2 flex-1">
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Permohonan / Kelulusan Penubuhan</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Pelantikan Guru Penasihat</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Perlembagaan & Peraturan Unit</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Carta Organisasi JK Murid</span>
+                            <span class="bg-rose-100 text-rose-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-times mr-1"></i> Kosong</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Senarai Nama Ahli Berdaftar</span>
+                            <span class="bg-amber-100 text-amber-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-spinner mr-1"></i> Semakan</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Pelan Strategik & Tahunan</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Jadual Kedatangan (Buku Kehadiran)</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Laporan Aktiviti Mingguan</span>
+                            <span class="bg-rose-100 text-rose-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-times mr-1"></i> Kosong</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Minit Mesyuarat Agung & JK</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Penyata Kewangan Unit</span>
+                            <span class="bg-rose-100 text-rose-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-times mr-1"></i> Kosong</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Salinan Sijil/Penghargaan</span>
+                            <span class="bg-amber-100 text-amber-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-spinner mr-1"></i> Semakan</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Laporan Pencapaian Ahli</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Penilaian PAJSK Murid</span>
+                            <span class="bg-rose-100 text-rose-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-times mr-1"></i> Kosong</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Fail Sukan & Olahraga -->
+                <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm relative overflow-hidden transition hover:shadow-md flex flex-col h-80">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-amber-500"></div>
+                    <h4 class="text-sm font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2 shrink-0">
+                        <i class="fas fa-running text-amber-500 mr-2"></i> 3. Fail Sukan & Olahraga
+                    </h4>
+                    <div class="space-y-1 text-[12px] overflow-y-auto tracker-list pr-2 flex-1">
+                        
+                        <div class="tracker-subtitle">Pengurusan Umum</div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Dasar Sukan Sekolah</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Carta Organisasi Majlis Sukan</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Minit Mesyuarat Majlis Sukan</span>
+                            <span class="bg-amber-100 text-amber-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-spinner mr-1"></i> Semakan</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Takwim Sukan Tahunan</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Senarai Guru Sukan & Pasukan</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Buku Keselamatan Sukan (KPM)</span>
+                            <span class="bg-rose-100 text-rose-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-times mr-1"></i> Kosong</span>
+                        </div>
+
+                        <div class="tracker-subtitle mt-3">Kejohanan Tahunan</div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Kertas Kerja Penganjuran</span>
+                            <span class="bg-rose-100 text-rose-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-times mr-1"></i> Kosong</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Senarai JK Pengelola</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Atur Cara Kejohanan</span>
+                            <span class="bg-amber-100 text-amber-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-spinner mr-1"></i> Semakan</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Peraturan & Syarat</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Senarai Peserta</span>
+                            <span class="bg-rose-100 text-rose-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-times mr-1"></i> Kosong</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Borang Keputusan Rasmi</span>
+                            <span class="bg-rose-100 text-rose-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-times mr-1"></i> Kosong</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Post-Mortem & Kewangan</span>
+                            <span class="bg-rose-100 text-rose-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-times mr-1"></i> Kosong</span>
+                        </div>
+
+                        <div class="tracker-subtitle mt-3">Pengurusan Lain</div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Fail Rumah Sukan</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Buku Stok Induk / Inventori</span>
+                            <span class="bg-rose-100 text-rose-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-times mr-1"></i> Kosong</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Pinjaman & Pemulangan Alatan</span>
+                            <span class="bg-rose-100 text-rose-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-times mr-1"></i> Kosong</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Pelupusan Peralatan</span>
+                            <span class="bg-rose-100 text-rose-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-times mr-1"></i> Kosong</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Fail Kewangan Koku -->
+                <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm relative overflow-hidden transition hover:shadow-md flex flex-col h-80">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-purple-500"></div>
+                    <h4 class="text-sm font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2 shrink-0">
+                        <i class="fas fa-file-invoice-dollar text-purple-500 mr-2"></i> 4. Fail Kewangan Koku
+                    </h4>
+                    <div class="space-y-1 text-[12px] overflow-y-auto tracker-list pr-2 flex-1">
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Kertas Kerja Berperuntukan</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Kelulusan Kewangan (PGB)</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Anggaran Perbelanjaan Tahunan</span>
+                            <span class="bg-amber-100 text-amber-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-spinner mr-1"></i> Semakan</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Salinan Resit & Bayaran</span>
+                            <span class="bg-rose-100 text-rose-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-times mr-1"></i> Kosong</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Laporan Kewangan / Penyata</span>
+                            <span class="bg-rose-100 text-rose-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-times mr-1"></i> Kosong</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Rekod & PAJSK -->
+                <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm relative overflow-hidden transition hover:shadow-md flex flex-col h-80">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-cyan-500"></div>
+                    <h4 class="text-sm font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2 shrink-0">
+                        <i class="fas fa-award text-cyan-500 mr-2"></i> 5. Rekod & PAJSK
+                    </h4>
+                    <div class="space-y-1 text-[12px] overflow-y-auto tracker-list pr-2 flex-1">
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Manual & Panduan PAJSK</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Pelantikan Guru Perekod</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Kehadiran Keseluruhan Murid</span>
+                            <span class="bg-rose-100 text-rose-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-times mr-1"></i> Kosong</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Data & Analisis Penglibatan</span>
+                            <span class="bg-rose-100 text-rose-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-times mr-1"></i> Kosong</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Senarai Murid Cemerlang</span>
+                            <span class="bg-amber-100 text-amber-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-spinner mr-1"></i> Semakan</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Borang Markah (Offline)</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Keselamatan & SOP -->
+                <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm relative overflow-hidden transition hover:shadow-md flex flex-col h-80">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-rose-500"></div>
+                    <h4 class="text-sm font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2 shrink-0">
+                        <i class="fas fa-shield-alt text-rose-500 mr-2"></i> 6. Keselamatan & SOP
+                    </h4>
+                    <div class="space-y-1 text-[12px] overflow-y-auto tracker-list pr-2 flex-1">
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Pekeliling Keselamatan</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">SOP Aktiviti Luar</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Borang Kebenaran Ibu Bapa</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Maklumat Kesihatan Murid</span>
+                            <span class="bg-amber-100 text-amber-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-spinner mr-1"></i> Semakan</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Laporan Kes / Kecederaan</span>
+                            <span class="bg-rose-100 text-rose-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-times mr-1"></i> Kosong</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Pelan Tindakan Kecemasan</span>
+                            <span class="bg-rose-100 text-rose-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-times mr-1"></i> Kosong</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. Program Khas & Acara -->
+                <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm relative overflow-hidden transition hover:shadow-md flex flex-col h-80 xl:col-start-2">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-indigo-500"></div>
+                    <h4 class="text-sm font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2 shrink-0">
+                        <i class="fas fa-star text-indigo-500 mr-2"></i> 7. Program Khas & Acara
+                    </h4>
+                    <div class="space-y-1 text-[12px] overflow-y-auto tracker-list pr-2 flex-1">
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Kertas Kerja Program</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Kelulusan PPD/JPN (Luar)</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Senarai JK Kerja</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Jadual Aktiviti</span>
+                            <span class="bg-amber-100 text-amber-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-spinner mr-1"></i> Semakan</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Surat Makluman Ibu Bapa</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-check mr-1"></i> Ada</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Post-Mortem & Penilaian</span>
+                            <span class="bg-rose-100 text-rose-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-times mr-1"></i> Kosong</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1.5 border-b border-slate-50">
+                            <span class="text-slate-600 truncate pr-2">Dokumentasi & Gambar</span>
+                            <span class="bg-rose-100 text-rose-700 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider"><i class="fas fa-times mr-1"></i> Kosong</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
-
-    </div>
 
     <script>
         // FUNGSI JAVASCRIPT YANG TELAH DIUBAHSUAI UNTUK KALIS BOCOR
